@@ -1,20 +1,38 @@
-import styled from 'styled-components';
-import { ContactForm } from './components/ContactForm';
-import { Filter } from './components/Filter';
-import { ContactList } from './components/ContactList';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { Layout } from './components/Layout';
+import { LoginPage } from 'components/LoginPage';
+import { RegistrationPage } from './components/RegistrationPage';
+import { Contacts } from 'components/Contacts';
+import { Navigate } from 'react-router-dom';
+import { PrivateRoute } from './hoc/PrivateRoute';
+import { PublicRoute } from './hoc/PublicRoute';
 
 export const App = () => {
   return (
-    <PhonebookBox>
-      <h1> Phonebook</h1>
-      <ContactForm />
-      <h2> Contacts</h2>
-      <Filter />
-      <ContactList />
-    </PhonebookBox>
+    <div>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="/register" element={<RegistrationPage />} />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <LoginPage />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute>
+                <Contacts />
+              </PrivateRoute>
+            }
+          />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Route>
+      </Routes>
+    </div>
   );
 };
-
-const PhonebookBox = styled.div`
-  padding: 30px;
-`;

@@ -1,15 +1,16 @@
-import { ContactItem } from 'components/ContactItem';
+import { ContactItem } from '../pages/ContactItem';
 import { ColorRing } from 'react-loader-spinner';
 import styled from 'styled-components';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchContacts } from '../redux/operations';
+import { fetchContacts } from '../redux/contacts/operations';
 import {
   getContacts,
   getFilter,
   getError,
   getIsLoading,
-} from '../redux/selectors';
+} from '../redux/contacts/selectors';
+import { refreshUser } from '../redux/auth/operations';
 
 export const ContactList = () => {
   const contacts = useSelector(getContacts);
@@ -18,7 +19,7 @@ export const ContactList = () => {
   const error = useSelector(getError);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshUser()).then(() => dispatch(fetchContacts()));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
