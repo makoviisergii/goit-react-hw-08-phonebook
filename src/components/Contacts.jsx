@@ -9,6 +9,7 @@ export const Contacts = () => {
     <PhonebookBox>
       <h1> Phonebook</h1>
       <ContactForm />
+      <h1> </h1>
       <Filter />
       <ContactList />
     </PhonebookBox>
