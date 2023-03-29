@@ -10,7 +10,9 @@ export const LoginPage = () => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    dispatch(logIn({ email, password }));
+    dispatch(logIn({ email, password }))
+      .unwrap()
+      .catch(error => alert('Incorrect password!'));
     form.reset();
   };
   return (

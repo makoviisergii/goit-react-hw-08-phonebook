@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { register } from '../redux/auth/operations';
-import { fetchContacts } from '../redux/contacts/operations';
+// import { fetchContacts } from '../redux/contacts/operations';
 import styled from 'styled-components';
 
 export const RegistrationPage = () => {
@@ -13,9 +13,9 @@ export const RegistrationPage = () => {
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
-    dispatch(register({ name, email, password })).hen(() =>
-      dispatch(fetchContacts())
-    );
+    dispatch(register({ name, email, password }))
+      .unwrap()
+      .catch(error => alert('Incorrect password!'));
     form.reset();
   };
   return (
